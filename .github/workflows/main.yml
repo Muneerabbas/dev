@@ -19,6 +19,9 @@ jobs:
         with:
           node-version: 18
           cache: "npm"
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
 
       # ---------- Backend ----------
       - name: Install backend dependencies
@@ -40,9 +43,7 @@ jobs:
 
       # ---------- Docker ----------
       - name: Build & start containers
-        working-directory: dockerp
         run: docker compose up -d --build
 
       - name: Stop containers
-        working-directory: dockerp
         run: docker compose down
