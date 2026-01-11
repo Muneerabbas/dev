@@ -22,20 +22,20 @@ jobs:
 
       # ---------- Backend ----------
       - name: Install backend dependencies
-        working-directory: dockerp/backend
+        working-directory: backend
         run: npm install
 
       - name: Run ESLint (Backend)
-        working-directory: dockerp/backend
+        working-directory: backend
         run: npm run lint -- --max-warnings=0
 
       # ---------- Frontend ----------
       - name: Install frontend dependencies
-        working-directory: dockerp/frontend
+        working-directory: frontend
         run: npm install
 
       - name: Run ESLint (Frontend)
-        working-directory: dockerp/frontend
+        working-directory: frontend
         run: npm run lint -- --max-warnings=0
 
       # ---------- Docker ----------
