@@ -30,11 +30,11 @@ jobs:
 
       # ---------- Frontend ----------
       - name: Install frontend dependencies
-        working-directory: frontend
+        working-directory: frontend/my-react-app
         run: npm install
 
       - name: Run ESLint (Frontend)
-        working-directory: frontend
+        working-directory: frontend/my-react-app
         run: npm run lint -- --max-warnings=0
 
       # ---------- Docker ----------
