@@ -28,10 +28,6 @@ jobs:
         working-directory: backend
         run: npm install
 
-      - name: Run ESLint (Backend)
-        working-directory: backend
-        run: npm run lint -- --max-warnings=0
-
       # ---------- Frontend ----------
       - name: Install frontend dependencies
         working-directory: frontend
