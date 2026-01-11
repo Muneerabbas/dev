@@ -1,0 +1,48 @@
+name: build-and-lint
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  build-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+
+      # ---------- Backend ----------
+      - name: Install backend dependencies
+        working-directory: dockerp/backend
+        run: npm install
+
+      - name: Run ESLint (Backend)
+        working-directory: dockerp/backend
+        run: npm run lint -- --max-warnings=0
+
+      # ---------- Frontend ----------
+      - name: Install frontend dependencies
+        working-directory: dockerp/frontend
+        run: npm install
+
+      - name: Run ESLint (Frontend)
+        working-directory: dockerp/frontend
+        run: npm run lint -- --max-warnings=0
+
+      # ---------- Docker ----------
+      - name: Build & start containers
+        working-directory: dockerp
+        run: docker compose up -d --build
+
+      - name: Stop containers
+        working-directory: dockerp
+        run: docker compose down
